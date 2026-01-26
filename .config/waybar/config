@@ -5,7 +5,7 @@
 
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
-  "modules-right": ["battery", "network", "pulseaudio"],
+  "modules-right": ["battery", "network", "pulseaudio", "custom/activity"],
 
   "battery": {
     "bat": "BAT1",
@@ -28,13 +28,19 @@
   "network": {
     "interface": "wlan0",
     "format": "{ifname}",
-    "format-wifi": "{essid} ({signalStrength}%) ",
-    "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+    "format-wifi": "{essid} ({signalStrength}%)  ",
+    "format-ethernet": "{ipaddr}/{cidr} 󰊗 ",
     "format-disconnected": "", //An empty format will hide the module.
-    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗 ",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)  ",
+    "tooltip-format-ethernet": "{ifname}  ",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50
+  },
+  "custom/activity": {
+  "interval": 2,
+  "exec": "~/.config/waybar/scripts/activity.sh",
+  "on-click": "foot -e btop",
+  "tooltip": true
   }
 }
