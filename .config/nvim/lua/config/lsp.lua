@@ -10,4 +10,8 @@ vim.lsp.config("gopls", {
   },
 })
 
+-- Python (pyright)
+vim.lsp.config("pyright", {})
+
 vim.lsp.enable("gopls")
+vim.lsp.enable("pyright")

@@ -4,7 +4,8 @@ return {
   priority = 1000,
   build = ":TSUpdate",
   config = function()
-    require("nvim-treesitter.config").setup({
+    require("nvim-treesitter.configs").setup({
+      ensure_installed = {"go", "python", "lua"},
       highlight = { enable = true },
     })
   end,
