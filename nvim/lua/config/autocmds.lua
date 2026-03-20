@@ -36,3 +36,11 @@ vim.api.nvim_create_autocmd({ "ModeChanged", "CursorMovedI" }, {
         end
     end,
 })
+
+-- Go formatting on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+})
