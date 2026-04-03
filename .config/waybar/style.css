@@ -1,90 +1,179 @@
 /* =============================
-   Global GTK reset
+   Global GTK reset & Typography
 ============================= */
 * {
   border: none;
   border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
   min-height: 0;
   margin: 0;
   padding: 0;
 }
 
-/* =============================
-   Waybar base
-============================= */
-#waybar {
-  min-height: 30px;
-  background-color: rgba(15, 15, 15, 0.95);
-  color: #eaeaea;
-  font-family: "JetBrainsMono Nerd Font";
-  font-size: 13px;
+window#waybar {
+  background-color: transparent;
+  color: #cdd6f4;
 }
 
 /* =============================
-   Module containers
+   Module Backgrounds & Spacing
 ============================= */
-.modules-left {
-  padding-left: 6px;
-}
-
-.modules-center {
-  padding: 0;
-}
-
-.modules-right {
-  padding-right: 6px;
+/* Grouping the modules into floating, rounded pills */
+#workspaces,
+#clock,
+#battery,
+#network,
+#pulseaudio,
+#backlight,
+#backlight-slider,
+#custom-activity {
+  background-color: #1e1e2e;
+  padding: 0px 14px;
+  margin: 4px 0px;
+  border-radius: 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* =============================
-   Normalize all modules
+   Hyprland Workspaces
 ============================= */
-.modules-left > *,
-.modules-center > *,
-.modules-right > * {
-  min-height: 30px;
-  padding-left: 8px;
-  padding-right: 8px;
+#workspaces {
+  padding: 0px 8px;
+}
+
+#workspaces button {
+  padding: 0px 8px;
+  margin: 4px 4px;
+  border-radius: 12px;
+  color: #6c7086; /* Unfocused gray */
+  background-color: transparent;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#workspaces button:hover {
+  background-color: rgba(137, 180, 250, 0.15);
+  color: #cdd6f4;
+  box-shadow: inset 0px 0px 8px rgba(137, 180, 250, 0.3);
+}
+
+#workspaces button.active {
+  color: #89b4fa; /* Neon blue */
+  background-color: rgba(137, 180, 250, 0.1);
+  text-shadow: 0px 0px 5px rgba(137, 180, 250, 0.5);
+}
+
+#workspaces button.urgent {
+  color: #f38ba8; /* Neon red */
+  background-color: rgba(243, 139, 168, 0.15);
+}
+
+/* =============================
+   Specific Module Colors
+============================= */
+#clock {
+  color: #89b4fa;
+  text-shadow: 0px 0px 4px rgba(137, 180, 250, 0.4);
+}
+
+#network {
+  color: #cba6f7; /* Purple */
+}
+
+#custom-activity {
+  color: #f38ba8; /* Red */
 }
 
 /* =============================
    Battery
 ============================= */
+#battery {
+  color: #a6e3a1; /* Green */
+}
+
+#battery.charging {
+  color: #89b4fa;
+}
+
 #battery.warning {
-  color: #f9c74f;
+  color: #f9e2af; /* Yellow */
 }
 
 #battery.critical {
-  color: #f94144;
+  color: #f38ba8; /* Red */
+  animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+  to {
+    background-color: rgba(243, 139, 168, 0.2);
+    text-shadow: 0px 0px 5px #f38ba8;
+  }
 }
 
 /* =============================
-   Network
+   Audio Slider
 ============================= */
-#network {
-  padding-left: 8px;
-  padding-right: 8px;
+#pulseaudio {
+  color: #8be9fd; /* Cyan */
+  padding-right: 0px; /* Hugs the slider */
 }
 
-/* =============================
-   Pulseaudio slider
-============================= */
 #pulseaudio-slider {
   min-width: 100px;
-  padding-left: 6px;
-  padding-right: 6px;
-}
-
-#pulseaudio-slider scale {
-  padding: 0;
+  padding-right: 14px;
 }
 
 #pulseaudio-slider trough {
-  min-height: 6px;
-  background-color: #333333;
+  min-height: 4px;
+  min-width: 80px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 #pulseaudio-slider highlight {
-  min-height: 6px;
-  background-color: #5fafff;
+  min-height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #8be9fd, #bd93f9);
+  box-shadow: 0px 0px 6px #bd93f9;
 }
 
+/* =============================
+   Backlight Slider
+============================= */
+#backlight {
+  color: #f9e2af; /* Yellow */
+  padding-right: 0px; /* Hugs the slider */
+}
+
+#backlight-slider {
+  min-width: 100px;
+  padding-right: 14px;
+}
+
+#backlight-slider trough {
+  min-height: 4px;
+  min-width: 80px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#backlight-slider highlight {
+  min-height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f9e2af, #fab387);
+  box-shadow: 0px 0px 6px #fab387;
+}
+
+/* Hides the invisible slider handles so only the gradient bar shows */
+#backlight-slider slider,
+#pulseaudio-slider slider {
+  min-height: 0px;
+  min-width: 0px;
+  opacity: 0;
+  background-image: none;
+  border: none;
+  box-shadow: none;
+}
