@@ -1,11 +1,31 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 30,
+  "height": 45,
+  "spacing": 10, 
+  "margin-top": 8,
+  "margin-left": 12,
+  "margin-right": 12,
 
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
-  "modules-right": ["battery", "network", "pulseaudio", "custom/activity"],
+  "modules-right": ["backlight", "backlight/slider", "pulseaudio", "network", "battery", "custom/activity"],
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "urgent": "",
+      "active": "",
+      "default": ""
+    }
+  },
 
   "battery": {
     "bat": "BAT1",
@@ -15,32 +35,51 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{capacity}% {icon}",
-     "format-icons": ["", "", "", "", ""]
+    "format": "{icon}  {capacity}%",
+    "format-charging": "  {capacity}%",
+    "format-icons": ["", "", "", "", ""]
   },
 
   "clock": {
-    "format": "{:%H:%M}"
+    "format": "  {:%H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
+
+  "backlight": {
+    "format": "{icon}",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "tooltip": false
+  },
+
+  "backlight/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+  },
+
   "pulseaudio": {
-    "format": "{volume}% "
+    "format": "{icon}  {volume}%",
+    "format-muted": "  Muted",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol"
   },
+
   "network": {
     "interface": "wlan0",
-    "format": "{ifname}",
-    "format-wifi": "{essid} ({signalStrength}%)  ",
-    "format-ethernet": "{ipaddr}/{cidr} 󰊗 ",
-    "format-disconnected": "", //An empty format will hide the module.
-    "tooltip-format": "{ifname} via {gwaddr} 󰊗 ",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%)  ",
-    "tooltip-format-ethernet": "{ifname}  ",
-    "tooltip-format-disconnected": "Disconnected",
-    "max-length": 50
+    "format-wifi": "  {essid}",
+    "format-ethernet": "󰊗  {ipaddr}",
+    "format-disconnected": "⚠  Offline",
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗"
   },
+
   "custom/activity": {
-  "interval": 2,
-  "exec": "~/.config/waybar/scripts/activity.sh",
-  "on-click": "foot -e btop",
-  "tooltip": true
+    "interval": 2,
+    "exec": "~/.config/waybar/scripts/activity.sh",
+    "on-click": "kitty -e nmtui",
+    "format": "  {}",
+    "tooltip": true
   }
 }
