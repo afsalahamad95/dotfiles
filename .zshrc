@@ -43,7 +43,10 @@ export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
 
 # Python / Local Binaries Path
 export PATH="$HOME/.local/bin:$PATH"
-
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+eval "$(starship init bash)"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # =============================================================================
 # ALIASES
