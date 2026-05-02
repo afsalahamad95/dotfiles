@@ -5,7 +5,7 @@
   border: none;
   border-radius: 0;
   font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono", monospace;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   min-height: 0;
   margin: 0;
@@ -18,7 +18,7 @@ window#waybar {
 }
 
 /* =============================
-   Module Backgrounds & Spacing
+   Module Backgrounds & Pill Containers
 ============================= */
 #workspaces,
 #clock,
@@ -38,8 +38,9 @@ window#waybar {
 #group-display {
   background-color: #1e1e2e;
   padding: 0px 14px;
-  margin: 4px 0px;
+  margin: 4px 3px;
   border-radius: 20px;
+  min-height: 32px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -48,91 +49,199 @@ window#waybar {
    Hyprland Workspaces
 ============================= */
 #workspaces { padding: 0px 8px; }
+
 #workspaces button {
-  padding: 0px 8px; margin: 4px 4px; border-radius: 12px; color: #6c7086; 
-  background-color: transparent; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 0px 8px;
+  margin: 4px 2px;
+  border-radius: 12px;
+  color: #6c7086;
+  background-color: transparent;
+  font-size: 16px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+
 #workspaces button:hover {
-  background-color: rgba(137, 180, 250, 0.15); color: #cdd6f4;
+  background-color: rgba(137, 180, 250, 0.15);
+  color: #cdd6f4;
   box-shadow: inset 0px 0px 8px rgba(137, 180, 250, 0.3);
 }
+
 #workspaces button.active {
-  color: #89b4fa; background-color: rgba(137, 180, 250, 0.1);
+  color: #89b4fa;
+  background-color: rgba(137, 180, 250, 0.1);
   text-shadow: 0px 0px 5px rgba(137, 180, 250, 0.5);
 }
 
 /* =============================
-   Drawer Spacing FIX (Dev Tools & Power Menu)
+   Hardware Metric Modules
 ============================= */
-#custom-devlinks-leader,
-#custom-quicklink_kitty, 
-#custom-quicklink_golang, 
-#custom-quicklink_rust,
-#custom-quicklink_python,
-#custom-quicklink_github, 
-#custom-quicklink_docker, 
-#custom-waypaper {
-  font-size: 20px; margin: 0px 12px; padding: 0px 4px; color: #b4befe; transition: all 0.2s ease;
-}
-#custom-quicklink_kitty:hover, 
-#custom-quicklink_golang:hover, 
-#custom-quicklink_rust:hover,
-#custom-quicklink_python:hover,
-#custom-quicklink_github:hover, 
-#custom-quicklink_docker:hover, 
-#custom-waypaper:hover {
-  color: #89b4fa; text-shadow: 0px 0px 8px rgba(137, 180, 250, 0.8);
+#cpu,
+#memory,
+#temperature {
+  font-size: 13px;
+  padding: 0px 12px;
+  min-width: 60px;
 }
 
-#custom-power-leader,
-#custom-lock, 
-#custom-reboot, 
-#custom-shutdown {
-  font-size: 18px; margin: 0px 15px; padding: 0px 5px; color: #cdd6f4; transition: all 0.2s ease;
-}
-#custom-lock:hover, 
-#custom-reboot:hover, 
-#custom-shutdown:hover {
-  color: #f38ba8; text-shadow: 0px 0px 8px rgba(243, 139, 168, 0.8);
+#cpu         { color: #f38ba8; }
+#memory      { color: #cba6f7; }
+#temperature { color: #fab387; }
+
+#temperature.critical {
+  color: #f38ba8;
+  animation: blink 1s linear infinite;
 }
 
 /* =============================
-   Specific Module Colors
+   Network
 ============================= */
-#clock { color: #89b4fa; }
-#custom-weather { color: #94e2d5; }
-
-/* Network Colors */
-#network { color: #89b4fa; font-size: 15px; padding: 0 8px; }
+#network {
+  color: #89b4fa;
+  font-size: 13px;
+  padding: 0px 12px;
+  min-width: 80px;
+}
 #network.disconnected { color: #f38ba8; }
-#network.ethernet { color: #a6e3a1; }
+#network.ethernet     { color: #a6e3a1; }
 
-/* Expanded Hardware Metrics */
-#cpu { color: #f38ba8; }
-#memory { color: #cba6f7; }
-#temperature { color: #fab387; }
-#temperature.critical { color: #f38ba8; animation: blink 1s linear infinite; }
+/* =============================
+   Clock & Weather
+============================= */
+#clock {
+  color: #89b4fa;
+  font-size: 14px;
+  padding: 0px 16px;
+}
 
-#battery { color: #a6e3a1; }
+#custom-weather {
+  color: #94e2d5;
+  font-size: 13px;
+  padding: 0px 10px;
+}
+
+/* =============================
+   Battery
+============================= */
+#battery          { color: #a6e3a1; font-size: 13px; }
 #battery.charging { color: #89b4fa; }
-#battery.warning { color: #f9e2af; }
+#battery.warning  { color: #f9e2af; }
 #battery.critical { color: #f38ba8; animation: blink 1s linear infinite; }
 
 @keyframes blink {
-  to { background-color: rgba(243, 139, 168, 0.2); text-shadow: 0px 0px 5px #f38ba8; }
+  to {
+    background-color: rgba(243, 139, 168, 0.2);
+    text-shadow: 0px 0px 5px #f38ba8;
+  }
 }
 
 /* =============================
-   Sliders
+   Dev Tools Drawer Icons
 ============================= */
-#pulseaudio, #backlight { padding-right: 0px; }
-#pulseaudio-slider, #backlight-slider { min-width: 100px; padding-right: 14px; }
-#pulseaudio-slider trough, #backlight-slider trough {
-  min-height: 4px; min-width: 80px; border-radius: 4px; background-color: rgba(255, 255, 255, 0.1);
+#custom-devlinks-leader,
+#custom-quicklink_kitty,
+#custom-quicklink_golang,
+#custom-quicklink_rust,
+#custom-quicklink_python,
+#custom-quicklink_github,
+#custom-quicklink_docker,
+#custom-waypaper {
+  font-size: 18px;
+  min-width: 18px;
+  margin: 0px 8px;
+  padding: 0px 4px;
+  color: #b4befe;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
-#pulseaudio-slider highlight { background: linear-gradient(90deg, #8be9fd, #bd93f9); box-shadow: 0px 0px 6px #bd93f9; }
-#backlight-slider highlight { background: linear-gradient(90deg, #f9e2af, #fab387); box-shadow: 0px 0px 6px #fab387; }
-#backlight-slider slider, #pulseaudio-slider slider { opacity: 0; min-height: 0px; min-width: 0px; }
 
-/* Calendar Tooltip spacing fix */
-tooltip label { padding: 10px; }
+#custom-quicklink_kitty:hover,
+#custom-quicklink_golang:hover,
+#custom-quicklink_rust:hover,
+#custom-quicklink_python:hover,
+#custom-quicklink_github:hover,
+#custom-quicklink_docker:hover,
+#custom-waypaper:hover {
+  color: #89b4fa;
+  text-shadow: 0px 0px 8px rgba(137, 180, 250, 0.8);
+}
+
+/* =============================
+   Power Menu Drawer Icons
+============================= */
+#custom-power-leader,
+#custom-lock,
+#custom-reboot,
+#custom-shutdown {
+  font-size: 17px;
+  min-width: 17px;
+  margin: 0px 10px;
+  padding: 0px 4px;
+  color: #cdd6f4;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+#custom-lock:hover,
+#custom-reboot:hover,
+#custom-shutdown:hover {
+  color: #f38ba8;
+  text-shadow: 0px 0px 8px rgba(243, 139, 168, 0.8);
+}
+
+/* =============================
+   Audio & Brightness Drawers
+============================= */
+#group-audio,
+#group-display {
+  padding: 0px 4px;
+}
+
+#pulseaudio,
+#backlight {
+  font-size: 14px;
+  padding: 0px 10px 0px 10px;
+  min-width: 0;
+}
+
+#pulseaudio-slider,
+#backlight-slider {
+  min-width: 80px;
+  padding: 0px 10px 0px 4px;
+}
+
+#pulseaudio-slider trough,
+#backlight-slider trough {
+  min-height: 4px;
+  min-width: 60px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#pulseaudio-slider highlight {
+  background: linear-gradient(90deg, #8be9fd, #bd93f9);
+  box-shadow: 0px 0px 6px #bd93f9;
+}
+
+#backlight-slider highlight {
+  background: linear-gradient(90deg, #f9e2af, #fab387);
+  box-shadow: 0px 0px 6px #fab387;
+}
+
+#pulseaudio-slider slider,
+#backlight-slider slider {
+  opacity: 0;
+  min-height: 0px;
+  min-width: 0px;
+}
+
+/* =============================
+   Calendar Tooltip
+============================= */
+tooltip {
+  background-color: #1e1e2e;
+  border: 1px solid rgba(137, 180, 250, 0.2);
+  border-radius: 12px;
+}
+
+tooltip label {
+  padding: 10px 14px;
+  color: #cdd6f4;
+}
