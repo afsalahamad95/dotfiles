@@ -42,6 +42,9 @@ export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
 # Python / Local Binaries Path
 export PATH="$HOME/.local/bin:$PATH"
 
+# tools
+export PATH="/usr/local/bin:$PATH"
+
 
 # =============================================================================
 # ALIASES
@@ -104,3 +107,5 @@ eval "$(starship init zsh)"
 #         zellij
 #     fi
 # fi
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"

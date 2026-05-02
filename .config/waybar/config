@@ -1,85 +1,269 @@
 {
-  "layer": "top",
-  "position": "top",
-  "height": 45,
-  "spacing": 10, 
-  "margin-top": 8,
-  "margin-left": 12,
-  "margin-right": 12,
+    "layer": "top",
+    "position": "top",
+    "height": 45,
+    "spacing": 8,
+    "margin-top": 10,
+    "margin-left": 15,
+    "margin-right": 15,
 
-  "modules-left": ["hyprland/workspaces"],
-  "modules-center": ["clock"],
-  "modules-right": ["backlight", "backlight/slider", "pulseaudio", "network", "battery", "custom/activity"],
+    "modules-left": [
+        "hyprland/workspaces",
+        "group/devlinks"
+    ],
+    "modules-center": [
+        "clock",
+        "custom/weather"
+    ],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "temperature",
+        "group/audio",
+        "group/display",
+        "battery",
+        "group/power"
+    ],
 
-  "hyprland/workspaces": {
-    "disable-scroll": true,
-    "all-outputs": true,
-    "format": "{icon}",
-    "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
-      "urgent": "",
-      "active": "",
-      "default": ""
+    // =========================================================
+    // WORKSPACES
+    // =========================================================
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "active": "󰮯",
+            "default": "󰊠",
+            "urgent": "󰀦"
+        }
+    },
+
+    // =========================================================
+    // DEV QUICKLINKS DRAWER (Now Fixed & Expanded)
+    // =========================================================
+    "group/devlinks": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 400,
+            "children-class": "devlink-child",
+            "transition-left-to-right": true
+        },
+        "modules": [
+            "custom/devlinks-leader",
+            "custom/quicklink_kitty",
+            "custom/quicklink_golang",
+            "custom/quicklink_rust",
+            "custom/quicklink_python",
+            "custom/quicklink_docker",
+            "custom/quicklink_github",
+            "custom/waypaper"
+        ]
+    },
+    "custom/devlinks-leader": {
+        "format": "󰧮",
+        "tooltip": true,
+        "tooltip-format": "Dev Shortcuts"
+    },
+    "custom/quicklink_kitty": {
+        "format": "󰆍",
+        "on-click": "kitty ~ &",
+        "tooltip": true,
+        "tooltip-format": "Terminal (Home)"
+    },
+    "custom/quicklink_golang": {
+        "format": "󰟓",
+        "on-click": "kitty --working-directory ~/go/src &",
+        "tooltip": true,
+        "tooltip-format": "Go Workspace (~/go/src)"
+    },
+    "custom/quicklink_rust": {
+        "format": "󱘗",
+        "on-click": "kitty --working-directory ~/Projects/Rust &",
+        "tooltip": true,
+        "tooltip-format": "Rust Workspace"
+    },
+    "custom/quicklink_python": {
+        "format": "󰌠",
+        "on-click": "kitty --working-directory ~/Projects/Python &",
+        "tooltip": true,
+        "tooltip-format": "Python Workspace"
+    },
+    "custom/quicklink_docker": {
+        "format": "󰡨",
+        "on-click": "kitty --hold sh -c 'docker ps -a; echo \"\nPress Ctrl+C or close window to exit\"' &",
+        "tooltip": true,
+        "tooltip-format": "Docker Status"
+    },
+    "custom/quicklink_github": {
+        "format": "󰊤",
+        "on-click": "xdg-open https://github.com/ &",
+        "tooltip": true,
+        "tooltip-format": "GitHub"
+    },
+    "custom/waypaper": {
+        "format": "󰸉",
+        "on-click": "waypaper &",
+        "tooltip": true,
+        "tooltip-format": "Wallpaper"
+    },
+
+    // =========================================================
+    // HARDWARE METRICS (Permanently Expanded & Visible)
+    // =========================================================
+    "cpu": {
+        "interval": 3,
+        "format": "󰻠 {usage}%",
+        "tooltip": true,
+        "tooltip-format": "Freq: {avg_frequency} GHz\nLoad: {load}"
+    },
+    "memory": {
+        "interval": 5,
+        "format": "󰍛 {used:.1f}G",
+        "tooltip": true,
+        "tooltip-format": "Swap: {swapUsed:.2f} / {swapTotal:.2f} GiB\nFree: {avail:.2f} GiB"
+    },
+    "temperature": {
+        "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+        "input-filename": "temp1_input",
+        "critical-threshold": 80,
+        "interval": 5,
+        "format": "󰔏 {temperatureC}°C",
+        "format-critical": "󰸁 {temperatureC}°C",
+        "tooltip": true,
+        "tooltip-format": "Critical threshold: 80°C"
+    },
+
+    // =========================================================
+    // AUDIO & DISPLAY
+    // =========================================================
+    "group/audio": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 400,
+            "children-class": "audio-child",
+            "transition-left-to-right": false
+        },
+        "modules": ["pulseaudio", "pulseaudio/slider"]
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 Muted",
+        "format-icons": {
+            "headphone": "󰋋",
+            "headset": "󰋎",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pavucontrol &",
+        "tooltip-format": "Volume: {volume}%\nDevice: {desc}"
+    },
+    "pulseaudio/slider": {
+        "min": 0, "max": 100, "orientation": "horizontal"
+    },
+
+    "group/display": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 400,
+            "children-class": "display-child",
+            "transition-left-to-right": false
+        },
+        "modules": ["backlight", "backlight/slider"]
+    },
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightnessctl -e4 -n2 set 5%+",
+        "on-scroll-down": "brightnessctl -e4 -n2 set 5%-",
+        "tooltip-format": "Brightness: {percent}%"
+    },
+    "backlight/slider": {
+        "min": 0, "max": 100, "orientation": "horizontal"
+    },
+
+    // =========================================================
+    // BATTERY
+    // =========================================================
+    "battery": {
+        "states": { "good": 80, "warning": 30, "critical": 15 },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip-format": "{capacity}%\n{timeTo}\nDraw: {power}W"
+    },
+
+    // =========================================================
+    // POWER DRAWER
+    // =========================================================
+    "group/power": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 400,
+            "children-class": "power-child",
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "custom/power-leader",
+            "custom/lock",
+            "custom/reboot",
+            "custom/shutdown"
+        ]
+    },
+    "custom/power-leader": {
+        "format": "󰐥",
+        "tooltip-format": "Power Menu"
+    },
+    "custom/lock": {
+        "format": "󰌾",
+        "on-click": "hyprlock &",
+        "tooltip-format": "Lock screen"
+    },
+    "custom/reboot": {
+        "format": "󰜉",
+        "on-click": "systemctl reboot",
+        "tooltip-format": "Reboot"
+    },
+    "custom/shutdown": {
+        "format": "󰤆",
+        "on-click": "systemctl poweroff",
+        "tooltip-format": "Shutdown"
+    },
+
+    // =========================================================
+    // CLOCK & WEATHER (Interactive Large Calendar)
+    // =========================================================
+    "clock": {
+        "format": "󰥔 {:%H:%M  %a, %b %e}",
+        "tooltip-format": "<tt><span size='12pt' font='JetBrainsMono Nerd Font'>{calendar}</span></tt>",
+        "calendar": {
+            "mode"          : "month",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "on-scroll"     : 1,
+            "format": {
+                "months":     "<span color='#89b4fa'><b>{}</b></span>",
+                "days":       "<span color='#cdd6f4'><b>{}</b></span>",
+                "weeks":      "<span color='#a6e3a1'><b>W{}</b></span>",
+                "weekdays":   "<span color='#f9e2af'><b>{}</b></span>",
+                "today":      "<span color='#f38ba8'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-click-forward": "tz_up",
+            "on-click-backward": "tz_down",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+    "custom/weather": {
+        "format": "{}",
+        "tooltip": true,
+        "interval": 1800,
+        "exec": "~/.config/waybar/scripts/weather.py",
+        "return-type": "json"
     }
-  },
-
-  "battery": {
-    "bat": "BAT1",
-    "adapter": "ACAD",
-    "interval": 30,
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
-    "format": "{icon}  {capacity}%",
-    "format-charging": "  {capacity}%",
-    "format-icons": ["", "", "", "", ""]
-  },
-
-  "clock": {
-    "format": "  {:%H:%M}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-  },
-
-  "backlight": {
-    "format": "{icon}",
-    "format-icons": ["󰃞", "󰃟", "󰃠"],
-    "tooltip": false
-  },
-
-  "backlight/slider": {
-    "min": 0,
-    "max": 100,
-    "orientation": "horizontal"
-  },
-
-  "pulseaudio": {
-    "format": "{icon}  {volume}%",
-    "format-muted": "  Muted",
-    "format-icons": {
-      "default": ["", "", ""]
-    },
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-    "on-click-right": "pavucontrol"
-  },
-
-  "network": {
-    "interface": "wlan0",
-    "format-wifi": "  {essid}",
-    "format-ethernet": "󰊗  {ipaddr}",
-    "format-disconnected": "⚠  Offline",
-    "tooltip-format": "{ifname} via {gwaddr} 󰊗"
-  },
-
-  "custom/activity": {
-    "interval": 2,
-    "exec": "~/.config/waybar/scripts/activity.sh",
-    "on-click": "kitty -e nmtui",
-    "format": "  {}",
-    "tooltip": true
-  }
 }

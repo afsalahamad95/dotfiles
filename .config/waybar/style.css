@@ -4,8 +4,8 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: "JetBrainsMono Nerd Font", sans-serif;
-  font-size: 14px;
+  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono", monospace;
+  font-size: 15px;
   font-weight: bold;
   min-height: 0;
   margin: 0;
@@ -20,7 +20,6 @@ window#waybar {
 /* =============================
    Module Backgrounds & Spacing
 ============================= */
-/* Grouping the modules into floating, rounded pills */
 #workspaces,
 #clock,
 #battery,
@@ -28,7 +27,15 @@ window#waybar {
 #pulseaudio,
 #backlight,
 #backlight-slider,
-#custom-activity {
+#custom-activity,
+#custom-weather,
+#cpu,
+#memory,
+#temperature,
+#group-devlinks,
+#group-power,
+#group-audio,
+#group-display {
   background-color: #1e1e2e;
   padding: 0px 14px;
   margin: 4px 0px;
@@ -40,140 +47,87 @@ window#waybar {
 /* =============================
    Hyprland Workspaces
 ============================= */
-#workspaces {
-  padding: 0px 8px;
-}
-
+#workspaces { padding: 0px 8px; }
 #workspaces button {
-  padding: 0px 8px;
-  margin: 4px 4px;
-  border-radius: 12px;
-  color: #6c7086; /* Unfocused gray */
-  background-color: transparent;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 0px 8px; margin: 4px 4px; border-radius: 12px; color: #6c7086; 
+  background-color: transparent; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-
 #workspaces button:hover {
-  background-color: rgba(137, 180, 250, 0.15);
-  color: #cdd6f4;
+  background-color: rgba(137, 180, 250, 0.15); color: #cdd6f4;
   box-shadow: inset 0px 0px 8px rgba(137, 180, 250, 0.3);
 }
-
 #workspaces button.active {
-  color: #89b4fa; /* Neon blue */
-  background-color: rgba(137, 180, 250, 0.1);
+  color: #89b4fa; background-color: rgba(137, 180, 250, 0.1);
   text-shadow: 0px 0px 5px rgba(137, 180, 250, 0.5);
 }
 
-#workspaces button.urgent {
-  color: #f38ba8; /* Neon red */
-  background-color: rgba(243, 139, 168, 0.15);
+/* =============================
+   Drawer Spacing FIX (Dev Tools & Power Menu)
+============================= */
+#custom-devlinks-leader,
+#custom-quicklink_kitty, 
+#custom-quicklink_golang, 
+#custom-quicklink_rust,
+#custom-quicklink_python,
+#custom-quicklink_github, 
+#custom-quicklink_docker, 
+#custom-waypaper {
+  font-size: 20px; margin: 0px 12px; padding: 0px 4px; color: #b4befe; transition: all 0.2s ease;
+}
+#custom-quicklink_kitty:hover, 
+#custom-quicklink_golang:hover, 
+#custom-quicklink_rust:hover,
+#custom-quicklink_python:hover,
+#custom-quicklink_github:hover, 
+#custom-quicklink_docker:hover, 
+#custom-waypaper:hover {
+  color: #89b4fa; text-shadow: 0px 0px 8px rgba(137, 180, 250, 0.8);
+}
+
+#custom-power-leader,
+#custom-lock, 
+#custom-reboot, 
+#custom-shutdown {
+  font-size: 18px; margin: 0px 15px; padding: 0px 5px; color: #cdd6f4; transition: all 0.2s ease;
+}
+#custom-lock:hover, 
+#custom-reboot:hover, 
+#custom-shutdown:hover {
+  color: #f38ba8; text-shadow: 0px 0px 8px rgba(243, 139, 168, 0.8);
 }
 
 /* =============================
    Specific Module Colors
 ============================= */
-#clock {
-  color: #89b4fa;
-  text-shadow: 0px 0px 4px rgba(137, 180, 250, 0.4);
-}
+#clock { color: #89b4fa; }
+#custom-weather { color: #94e2d5; }
 
-#network {
-  color: #cba6f7; /* Purple */
-}
+/* Expanded Hardware Metrics */
+#cpu { color: #f38ba8; }
+#memory { color: #cba6f7; }
+#temperature { color: #fab387; }
+#temperature.critical { color: #f38ba8; animation: blink 1s linear infinite; }
 
-#custom-activity {
-  color: #f38ba8; /* Red */
-}
-
-/* =============================
-   Battery
-============================= */
-#battery {
-  color: #a6e3a1; /* Green */
-}
-
-#battery.charging {
-  color: #89b4fa;
-}
-
-#battery.warning {
-  color: #f9e2af; /* Yellow */
-}
-
-#battery.critical {
-  color: #f38ba8; /* Red */
-  animation: blink 1s linear infinite;
-}
+#battery { color: #a6e3a1; }
+#battery.charging { color: #89b4fa; }
+#battery.warning { color: #f9e2af; }
+#battery.critical { color: #f38ba8; animation: blink 1s linear infinite; }
 
 @keyframes blink {
-  to {
-    background-color: rgba(243, 139, 168, 0.2);
-    text-shadow: 0px 0px 5px #f38ba8;
-  }
+  to { background-color: rgba(243, 139, 168, 0.2); text-shadow: 0px 0px 5px #f38ba8; }
 }
 
 /* =============================
-   Audio Slider
+   Sliders
 ============================= */
-#pulseaudio {
-  color: #8be9fd; /* Cyan */
-  padding-right: 0px; /* Hugs the slider */
+#pulseaudio, #backlight { padding-right: 0px; }
+#pulseaudio-slider, #backlight-slider { min-width: 100px; padding-right: 14px; }
+#pulseaudio-slider trough, #backlight-slider trough {
+  min-height: 4px; min-width: 80px; border-radius: 4px; background-color: rgba(255, 255, 255, 0.1);
 }
+#pulseaudio-slider highlight { background: linear-gradient(90deg, #8be9fd, #bd93f9); box-shadow: 0px 0px 6px #bd93f9; }
+#backlight-slider highlight { background: linear-gradient(90deg, #f9e2af, #fab387); box-shadow: 0px 0px 6px #fab387; }
+#backlight-slider slider, #pulseaudio-slider slider { opacity: 0; min-height: 0px; min-width: 0px; }
 
-#pulseaudio-slider {
-  min-width: 100px;
-  padding-right: 14px;
-}
-
-#pulseaudio-slider trough {
-  min-height: 4px;
-  min-width: 80px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-#pulseaudio-slider highlight {
-  min-height: 4px;
-  border-radius: 4px;
-  background: linear-gradient(90deg, #8be9fd, #bd93f9);
-  box-shadow: 0px 0px 6px #bd93f9;
-}
-
-/* =============================
-   Backlight Slider
-============================= */
-#backlight {
-  color: #f9e2af; /* Yellow */
-  padding-right: 0px; /* Hugs the slider */
-}
-
-#backlight-slider {
-  min-width: 100px;
-  padding-right: 14px;
-}
-
-#backlight-slider trough {
-  min-height: 4px;
-  min-width: 80px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-#backlight-slider highlight {
-  min-height: 4px;
-  border-radius: 4px;
-  background: linear-gradient(90deg, #f9e2af, #fab387);
-  box-shadow: 0px 0px 6px #fab387;
-}
-
-/* Hides the invisible slider handles so only the gradient bar shows */
-#backlight-slider slider,
-#pulseaudio-slider slider {
-  min-height: 0px;
-  min-width: 0px;
-  opacity: 0;
-  background-image: none;
-  border: none;
-  box-shadow: none;
-}
+/* Calendar Tooltip spacing fix */
+tooltip label { padding: 10px; }
