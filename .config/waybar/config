@@ -40,7 +40,7 @@
     },
 
     // =========================================================
-    // DEV QUICKLINKS DRAWER
+    // DEV QUICKLINKS DRAWER (Now Fixed & Expanded)
     // =========================================================
     "group/devlinks": {
         "orientation": "horizontal",
@@ -53,8 +53,10 @@
             "custom/devlinks-leader",
             "custom/quicklink_kitty",
             "custom/quicklink_golang",
-            "custom/quicklink_github",
+            "custom/quicklink_rust",
+            "custom/quicklink_python",
             "custom/quicklink_docker",
+            "custom/quicklink_github",
             "custom/waypaper"
         ]
     },
@@ -65,27 +67,39 @@
     },
     "custom/quicklink_kitty": {
         "format": "󰆍",
-        "on-click": "kitty &",
+        "on-click": "kitty ~ &",
         "tooltip": true,
-        "tooltip-format": "Terminal"
+        "tooltip-format": "Terminal (Home)"
     },
     "custom/quicklink_golang": {
         "format": "󰟓",
         "on-click": "kitty --working-directory ~/go/src &",
         "tooltip": true,
-        "tooltip-format": "Go Workspace"
+        "tooltip-format": "Go Workspace (~/go/src)"
+    },
+    "custom/quicklink_rust": {
+        "format": "󱘗",
+        "on-click": "kitty --working-directory ~/Projects/Rust &",
+        "tooltip": true,
+        "tooltip-format": "Rust Workspace"
+    },
+    "custom/quicklink_python": {
+        "format": "󰌠",
+        "on-click": "kitty --working-directory ~/Projects/Python &",
+        "tooltip": true,
+        "tooltip-format": "Python Workspace"
+    },
+    "custom/quicklink_docker": {
+        "format": "󰡨",
+        "on-click": "kitty --hold sh -c 'docker ps -a; echo \"\nPress Ctrl+C or close window to exit\"' &",
+        "tooltip": true,
+        "tooltip-format": "Docker Status"
     },
     "custom/quicklink_github": {
         "format": "󰊤",
         "on-click": "xdg-open https://github.com/ &",
         "tooltip": true,
         "tooltip-format": "GitHub"
-    },
-    "custom/quicklink_docker": {
-        "format": "󰡨",
-        "on-click": "kitty -e docker ps -a &",
-        "tooltip": true,
-        "tooltip-format": "Docker"
     },
     "custom/waypaper": {
         "format": "󰸉",

@@ -62,11 +62,13 @@ window#waybar {
 }
 
 /* =============================
-   Drawer Spacing FIX
+   Drawer Spacing FIX (Dev Tools & Power Menu)
 ============================= */
 #custom-devlinks-leader,
 #custom-quicklink_kitty, 
 #custom-quicklink_golang, 
+#custom-quicklink_rust,
+#custom-quicklink_python,
 #custom-quicklink_github, 
 #custom-quicklink_docker, 
 #custom-waypaper {
@@ -74,6 +76,8 @@ window#waybar {
 }
 #custom-quicklink_kitty:hover, 
 #custom-quicklink_golang:hover, 
+#custom-quicklink_rust:hover,
+#custom-quicklink_python:hover,
 #custom-quicklink_github:hover, 
 #custom-quicklink_docker:hover, 
 #custom-waypaper:hover {
