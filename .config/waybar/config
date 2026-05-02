@@ -19,6 +19,7 @@
         "cpu",
         "memory",
         "temperature",
+        "network",
         "group/audio",
         "group/display",
         "battery",
@@ -40,7 +41,7 @@
     },
 
     // =========================================================
-    // DEV QUICKLINKS DRAWER (Now Fixed & Expanded)
+    // DEV QUICKLINKS DRAWER (Hover to expand)
     // =========================================================
     "group/devlinks": {
         "orientation": "horizontal",
@@ -109,7 +110,7 @@
     },
 
     // =========================================================
-    // HARDWARE METRICS (Permanently Expanded & Visible)
+    // HARDWARE METRICS (Permanently Expanded)
     // =========================================================
     "cpu": {
         "interval": 3,
@@ -135,7 +136,23 @@
     },
 
     // =========================================================
-    // AUDIO & DISPLAY
+    // NETWORK (Permanently Expanded)
+    // =========================================================
+    "network": {
+        "interval": 2,
+        "format-wifi": "󰤨 {essid} ({signalStrength}%)  󰇚 {bandwidthDownBytes:>10}  󰕒 {bandwidthUpBytes:>10}",
+        "format-ethernet": "󰈀 {ifname}  󰇚 {bandwidthDownBytes:>10}  󰕒 {bandwidthUpBytes:>10}",
+        "format-linked": "󰈀 {ifname} (No IP)",
+        "format-disconnected": "󰤭 Disconnected",
+        "format-disabled": "󰤮 Disabled",
+        "tooltip-format-wifi": "SSID: {essid}\nIP: {ipaddr}\nFrequency: {frequency} MHz",
+        "tooltip-format-ethernet": "Interface: {ifname}\nIP: {ipaddr}",
+        "tooltip-format-disconnected": "Network Disconnected",
+        "on-click": "kitty -e nmtui &"
+    },
+
+    // =========================================================
+    // AUDIO & DISPLAY (Drawers)
     // =========================================================
     "group/audio": {
         "orientation": "horizontal",
