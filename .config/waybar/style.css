@@ -102,6 +102,11 @@ window#waybar {
 #clock { color: #89b4fa; }
 #custom-weather { color: #94e2d5; }
 
+/* Network Colors */
+#network { color: #89b4fa; font-size: 15px; padding: 0 8px; }
+#network.disconnected { color: #f38ba8; }
+#network.ethernet { color: #a6e3a1; }
+
 /* Expanded Hardware Metrics */
 #cpu { color: #f38ba8; }
 #memory { color: #cba6f7; }
